@@ -8,27 +8,45 @@
 //      shootWithFoot (fait tomber 5 snack et 20e. Et eteint la machine)
 
 class VendorMachine {
-    private isOn;
+  private isOn: boolean;
 
-    private snacksQty;
+  private snacksQty: number;
 
-    private money;
+  private money: number;
 
-    public function buySnack() {
-        this.money += 2;
-        this.snacksQty -= 1;
-    };
+  public constructor() {
+    this.isOn = false;
+    this.snacksQty = 50;
+    this.money = 0;
+  }
 
-    public function reset() {
-        this.isOn=false;
-        this.money=0;
-        this.snacksQty=50;
-        this.isOn=true;
-    };
+  public buySnack(): void {
+    this.isOn = true;
+    this.money += 2;
+    if (this.snacksQty === 0) {
+      throw new Error("No snacks for you :(");
+    }
+    this.snacksQty -= 1;
+  }
 
-    public function shootWithFoot() {
-        this.money -= 20;
-        this.snacksQty -= 5;
-        this.isOn=false;
-    };
+  public reset(): void {
+    this.isOn = false;
+    this.money = 0;
+    this.snacksQty = 50;
+    this.isOn = true;
+  }
+
+  public shootWithFoot(): void {
+    if (this.snacksQty < 5) {
+      throw new Error("No snacks for you, you thief ! >:(");
+    }
+    this.snacksQty -= 5;
+    if (this.money < 20) {
+      throw new Error("Good try, but can't steal money if none :)");
+    }
+    this.money -= 20;
+    this.isOn = false;
+  }
 }
+
+const vendorMachine = new VendorMachine();
