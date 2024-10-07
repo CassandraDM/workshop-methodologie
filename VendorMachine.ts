@@ -22,10 +22,10 @@ class VendorMachine {
 
   public buySnack(): void {
     this.isOn = true;
-    this.money += 2;
     if (this.snacksQty === 0) {
       throw new Error("No snacks for you :(");
     }
+    this.money += 2;
     this.snacksQty -= 1;
   }
 
