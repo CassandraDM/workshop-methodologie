@@ -32,20 +32,41 @@ class VendorMachine {
   public reset(): void {
     this.isOn = false;
     this.money = 0;
-    this.snacksQty = 50;
+    this.snacksQty = this.calculateLeftSnacksQty();
     this.isOn = true;
   }
 
+  private calculateLeftSnacksQty(): number {
+    return this.snacksQty + (50 - this.snacksQty);
+  }
+
   public shootWithFoot(): void {
-    if (this.snacksQty < 5) {
-      throw new Error("No snacks for you, you thief ! >:(");
-    }
-    this.snacksQty -= 5;
-    if (this.money < 20) {
-      throw new Error("Good try, but can't steal money if none :)");
-    }
-    this.money -= 20;
+    // if (this.snacksQty < 5) {
+    //   throw new Error("No snacks for you, you thief ! >:(");
+    // }
     this.isOn = false;
+
+    this.dropMoney();
+    this.dropSnacks();
+  }
+
+  // if (this.money === 0) {
+  //     throw new Error("Good try, but can't steal money if none :)");
+  // }
+
+  private dropMoney(): void {
+    let moneyToDrop = 20;
+    if (this.money < 20) {
+      moneyToDrop = this.money;
+    }
+    this.money -= moneyToDrop;
+  }
+  private dropSnacks(): void {
+    let snacksToDrop = 5;
+    if (this.snacksQty < 5) {
+      snacksToDrop = this.snacksQty;
+    }
+    this.snacksQty -= snacksToDrop;
   }
 }
 
